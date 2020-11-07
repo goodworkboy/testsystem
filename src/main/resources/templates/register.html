@@ -7,41 +7,42 @@
 </head>
 <body>
 	<form class="form-horizontal" method="post" name="createform">
-      <div class="control-group">
-        <label class="control-label" for="inputStudentName">姓名</label>
-        <div class="controls">
-          <input type="text" id="inputStudentName" name="name" th:value="${name}" placeholder="姓名">
-        </div>
-        <div class="alert alert-danger" th:text="${nameerror}"  th:if="${nameerror != null}"></div>
-      </div>
-      <div class="control-group">
-        <label class="control-label" for="inputStudentNum">学号</label>
-        <div class="controls">
-          <input type="text" id="inputStudentNum" name="studentNum"  th:value="${studentNum}" placeholder="学号">
-        </div>
-        <div class="alert alert-danger" th:text="${studentNumerror}" th:if="${studentNumerror != null}"></div>
-      </div>
-      <div class="control-group">
-        <label class="control-label" for="inputPassword">密码</label>
-        <div class="controls">
-          <input type="password" id="inputPassword" name="password1" th:value="${password1}" placeholder="密码">
-        </div>
-        <div class="alert alert-danger" th:text="${password1error}" th:if="${password1error != null}"></div>
-      </div>
-      <div class="control-group">
-        <label class="control-label" for="inputPassword">确认密码</label>
-        <div class="controls">
-          <input type="password" id="inputPassword" name="password2" th:value="${password2}" placeholder="确认密码">
-        </div>
-        <div class="alert alert-danger" th:text="${password2error}" th:if="${password2error != null}"></div>
-      </div>
-      <div class="alert alert-danger" th:text="${error}" th:if="${error != null}"></div>
-      <div class="control-group">
-        <div class="controls">
-          <button type="submit" class="btn" onclick="submitUser()">提交</button>
-          <button type="submit" class="btn" onclick="returnHome()">返回</button>
-        </div>
-      </div>
+	  	<div class="form-group">
+		    <label for="inputStudentName" class="col-sm-2 control-label">姓名：</label>
+		    <div class="col-sm-5">
+		      <input type="text" class="form-control" id="inputStudentName" name="name" th:value="${name}" placeholder="姓名">
+		    </div>
+	  	</div>
+	  	
+	  	<div class="form-group">
+		    <label for="inputStudentNum" class="col-sm-2 control-label">学号：</label>
+		    <div class="col-sm-5">
+		      <input type="text" class="form-control" id="inputhead" name="studentNum" th:value="${studentNum}" placeholder="学号">
+		    </div>
+		</div>
+	  	<div class="form-group">
+		    <label for="inputPassword1" class="col-sm-2 control-label">密码：</label>
+		    <div class="col-sm-5">
+		      <input type="password" class="form-control" id="inputPassword1" name="password1" th:value="${password1}" placeholder="密码">
+		    </div>
+	  	</div>
+	  	<div class="form-group">
+		    <label for="inputPassword2" class="col-sm-2 control-label">密码：</label>
+		    <div class="col-sm-5">
+		      <input type="password" class="form-control" id="inputPassword2" name="password2" th:value="${password2}" placeholder="确认密码">
+		    </div>
+	  	</div>
+      	<div class="alert alert-danger col-sm-offset-1 col-sm-6" th:text="${error}" th:if="${error != null}"></div>
+      	<div class="control-group">
+      		<div class="col-sm-offset-2 col-sm-10">
+	        	<span class="col-sm-offset-1">
+	        		<button type="submit" class="btn" onclick="submitUser()">提交</button>
+	        	</span>
+	          	<span class="col-sm-offset-1">
+	        		<button type="submit" class="btn" onclick="returnHome()">返回</button>
+	        	</span>
+	        </div>
+      	</div>
     </form>
 </body>
 </html>

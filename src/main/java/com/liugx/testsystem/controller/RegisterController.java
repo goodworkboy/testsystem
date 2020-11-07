@@ -27,27 +27,27 @@ public class RegisterController {
 		model.addAttribute("password2", password2);
 		if(name==null || name.length()==0) {
 			System.out.println("姓名不能为空！");
-			model.addAttribute("nameerror", "姓名不能为空！");
+			model.addAttribute("error", "姓名不能为空！");
 			return "register";
 		}
 		if(studentNum==null || studentNum.length()==0) {
 			System.out.println("学号不能为空！");
-			model.addAttribute("studentNumerror", "学号不能为空！");
+			model.addAttribute("error", "学号不能为空！");
 			return "register";
 		}
 		if(studentNum!=null && studentNum.length()!=8) {
 			System.out.println("学号不能为空！");
-			model.addAttribute("studentNumerror", "请输入正确的学号格式（8位）！");
+			model.addAttribute("error", "请输入正确的学号格式（8位）！");
 			return "register";
 		}
 		if(password1==null || password1.length()==0) {
 			System.out.println("密码不能为空！");
-			model.addAttribute("password1error", "密码不能为空！");
+			model.addAttribute("error", "密码不能为空！");
 			return "register";
 		}
 		if(password2==null || password2.length()==0) {
 			System.out.println("确认密码不能为空！");
-			model.addAttribute("password2error", "确认密码不能为空！");
+			model.addAttribute("error", "确认密码不能为空！");
 			return "register";
 		}
 		if(!password1.equals(password2)) {

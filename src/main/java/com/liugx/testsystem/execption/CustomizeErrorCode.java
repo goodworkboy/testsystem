@@ -3,7 +3,8 @@ package com.liugx.testsystem.execption;
 public enum CustomizeErrorCode implements ICustomizeErrorCode{
 	
 	
-	STUDENTNUM_OR_PASSWORD_IS_NULL(2001, "用户名或密码为空！")
+	STUDENTNUM_OR_PASSWORD_IS_NULL(2001, "用户名或密码为空！"), 
+	QUESTION_NOT_FOUND(2002,"问题未找到！")
     ;
 	
 	private Integer code;

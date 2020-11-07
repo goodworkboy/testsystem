@@ -44,12 +44,12 @@ public class IndexController {
 		model.addAttribute("studentNum", studentNum);
 		if(studentNum==null) {
 			System.out.println("学号不能为空！");
-			model.addAttribute("studentNumerror", "学号不能为空！");
+			model.addAttribute("error", "学号不能为空！");
 			return "index";
 		}
 		if(password==null || password.length()==0) {
 			System.out.println("密码不能为空！");
-			model.addAttribute("passworderror", "密码不能为空！");
+			model.addAttribute("error", "密码不能为空！");
 			return "index";
 		}
 		UserDTO userdto=new UserDTO();
