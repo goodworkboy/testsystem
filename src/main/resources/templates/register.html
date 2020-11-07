@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Insert title here</title>
+<head th:insert="import :: head"></head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+	<form class="form-horizontal" method="post" name="createform">
+      <div class="control-group">
+        <label class="control-label" for="inputStudentName">姓名</label>
+        <div class="controls">
+          <input type="text" id="inputStudentName" name="name" th:value="${name}" placeholder="姓名">
+        </div>
+        <div class="alert alert-danger" th:text="${nameerror}"  th:if="${nameerror != null}"></div>
+      </div>
+      <div class="control-group">
+        <label class="control-label" for="inputStudentNum">学号</label>
+        <div class="controls">
+          <input type="text" id="inputStudentNum" name="studentNum"  th:value="${studentNum}" placeholder="学号">
+        </div>
+        <div class="alert alert-danger" th:text="${studentNumerror}" th:if="${studentNumerror != null}"></div>
+      </div>
+      <div class="control-group">
+        <label class="control-label" for="inputPassword">密码</label>
+        <div class="controls">
+          <input type="password" id="inputPassword" name="password1" th:value="${password1}" placeholder="密码">
+        </div>
+        <div class="alert alert-danger" th:text="${password1error}" th:if="${password1error != null}"></div>
+      </div>
+      <div class="control-group">
+        <label class="control-label" for="inputPassword">确认密码</label>
+        <div class="controls">
+          <input type="password" id="inputPassword" name="password2" th:value="${password2}" placeholder="确认密码">
+        </div>
+        <div class="alert alert-danger" th:text="${password2error}" th:if="${password2error != null}"></div>
+      </div>
+      <div class="alert alert-danger" th:text="${error}" th:if="${error != null}"></div>
+      <div class="control-group">
+        <div class="controls">
+          <button type="submit" class="btn" onclick="submitUser()">提交</button>
+          <button type="submit" class="btn" onclick="returnHome()">返回</button>
+        </div>
+      </div>
+    </form>
+</body>
+</html>
+<script>
+    function submitUser(){
+//        document.("表单的name值").action
+//        document.("表单的name值").submit
+        document.createform.action="submit";
+        document.form.submit();
+    }
+    function returnHome() {
+        document.createform.action = "returnHome";
+        document.form.submit();
+    }
+</script>

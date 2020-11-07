@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Serving Web Content</title>
+    <head th:insert="import :: head"></head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+	<div class="container-fluid main ">
+		<div class="jumbotron">
+		    <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12"><h1>成功！！！</h1>
+		        <p th:text="${message}"></p>
+		        <p><a class="btn btn-primary btn-lg" href="/" role="button">回到主页</a></p>
+		    </div>
+		</div>
+	</div>
+</body>
+</html>

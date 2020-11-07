@@ -2,9 +2,48 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Getting Started: Serving Web Content</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <head th:insert="import :: head"></head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 <body>
-    <p th:text="'Hello, ' + ${name} + '!'" />
+	<div class="container-fluid">
+	  <div class="row">
+	  	<form class="form-horizontal" method="post" name="form">
+	      <div class="control-group">
+	        <label class="control-label" for="inputStudentNum">学号</label>
+	        <div class="controls">
+	          <input type="text" id="inputStudentNum" name="studentNum" th:value="${studentNum}"  placeholder="学号">
+	        </div>
+	        <div class="alert alert-danger" th:text="${studentNumerror}" th:if="${studentNumerror != null}"></div>
+	      </div>
+	      <div class="control-group">
+	        <label class="control-label" for="inputPassword">密码</label>
+	        <div class="controls">
+	          <input type="password" id="inputPassword" name="password" placeholder="密码">
+	        </div>
+	        <div class="alert alert-danger" th:text="${passworderror}" th:if="${passworderror != null}"></div>
+	      </div>
+	      <div class="alert alert-danger" th:text="${error}" th:if="${error != null}"></div>
+	      <div class="control-group">
+	        <div class="controls">
+	          <button type="submit" class="btn" onclick="login()">登录</button>
+	          <button type="submit" class="btn" onclick="register()">注册</button>
+	        </div>
+	      </div>
+	    </form>
+	  </div>
+	</div>
 </body>
 </html>
+<script>
+    function login(){
+//        document.("表单的name值").action
+//        document.("表单的name值").submit
+        document.form.action="login";
+        document.form.submit();
+    }
+    function register() {
+        document.form.action = "redirectToRegister";
+        document.form.submit();
+    }
+</script>
