@@ -5,5 +5,5 @@ import lombok.Data;
 @Data
 public class UserDTO {
 	private String password;
-	private long studentNum;
+	private String studentNum;
 }

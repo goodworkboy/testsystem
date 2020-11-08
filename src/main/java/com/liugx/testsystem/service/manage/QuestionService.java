@@ -3,6 +3,7 @@ package com.liugx.testsystem.service.manage;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,8 +14,9 @@ import com.liugx.testsystem.dto.QuestionDTO;
 import com.liugx.testsystem.dto.QuestionQueryDTO;
 import com.liugx.testsystem.execption.CustomizeErrorCode;
 import com.liugx.testsystem.execption.CustomizeException;
-import com.liugx.testsystem.mapper.manage.QuestionMapper;
+import com.liugx.testsystem.mapper.QuestionMapper;
 import com.liugx.testsystem.model.Question;
+import com.liugx.testsystem.model.QuestionExample;
 
 @Service
 public class QuestionService {
@@ -24,7 +26,9 @@ public class QuestionService {
 	
 	public boolean insert(QuestionCreateDTO questionDTO) {
 		// TODO Auto-generated method stub
-		if(questionMapper.insertQuestion(questionDTO)==0) {
+		Question question = new Question();
+		BeanUtils.copyProperties(questionDTO, question);
+		if(questionMapper.insertSelective(question)==0) {
 			return false;
 		}
 		return true;
@@ -34,7 +38,7 @@ public class QuestionService {
 		// TODO Auto-generated method stub
 		PaginationDTO paginationDTO=new PaginationDTO();
 		Integer totalPage;
-		Integer totalCount = questionMapper.countQuestions();
+		Integer totalCount = (int) questionMapper.countByExample(new QuestionExample());
 		if (totalCount % size == 0) {
             totalPage = totalCount / size;
         } else {
@@ -52,7 +56,8 @@ public class QuestionService {
         QuestionQueryDTO questionQueryDTO=new QuestionQueryDTO();
         questionQueryDTO.setSize(size);
         questionQueryDTO.setOffset(offset);
-        List<Question> questions = questionMapper.selectQuestionsByPage(questionQueryDTO);
+        QuestionExample questionExample =new QuestionExample();
+        List<Question> questions = questionMapper.selectByExampleWithRowbounds(questionExample, new RowBounds(offset,size));
         List<QuestionDTO> questionDTOList = new ArrayList<>();
         for (Question question : questions) {
             QuestionDTO questionDTO = new QuestionDTO();
@@ -81,7 +86,8 @@ public class QuestionService {
 		if(question==null||question.getStatus()) {
 			return false;
 		}
-		if(questionMapper.updateQuestion(questionDTO)==0) {
+		BeanUtils.copyProperties(questionDTO, question);
+		if(questionMapper.updateByPrimaryKey(question)==0) {
 			return false;
 		}
 		return true;
@@ -93,7 +99,7 @@ public class QuestionService {
 		if(question==null||question.getStatus()) {
 			return false;
 		}
-		if(questionMapper.deleteQuestion(questionDTO)==0) {
+		if(questionMapper.updateByPrimaryKey(question)==0) {
 			return false;
 		}
 		return true;

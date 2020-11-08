@@ -38,7 +38,7 @@ public class IndexController {
 	
 	@RequestMapping(value="login",method=RequestMethod.POST)
 	public String login(Model model,
-			@RequestParam(value="studentNum",required=false)Long studentNum,
+			@RequestParam(value="studentNum",required=false)String studentNum,
 			@RequestParam(value="password",required=false)String password,
 			HttpServletRequest request) {
 		model.addAttribute("studentNum", studentNum);
