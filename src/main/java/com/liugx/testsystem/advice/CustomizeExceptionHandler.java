@@ -17,6 +17,8 @@ public class CustomizeExceptionHandler {
 			Model model) {
 		 if (ex instanceof CustomizeException) {
              model.addAttribute("message", ex.getMessage());
+         }else {
+        	 model.addAttribute("message", ex.getMessage());
          }
          return new ModelAndView("error");
 	}

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Serving Web Content</title>
+    <head th:insert="import :: head"></head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+	<div th:insert="/manage/navigation :: nav"></div>
+	<div>
+		<div class="media col-sm-offset-1 col-sm-7">
+			<form method="post" action="/manage/modifypaper/modifyname">
+				<input type="hidden" class="form-control" id="paperstatus" name="status" th:value="${paper.status}">
+			  	<input type="hidden" class="form-control" id="paperid" name="paperid" th:value="${paper.id}">
+			  	<input type="hidden" class="form-control" id="questionpage" name="page" th:value="${pagination.page}">
+				<label for="papername" class="media-left col-sm-2 control-label" >试卷名称：</label>
+			    <div class="media-body">
+			    	<input type="text" class="form-control" id="papername" name="papername"  th:value="${paper.name}" placeholder="试卷名称">
+		    	</div>
+		    	<div class="media-right col-sm-offset-6">
+		    		<button type="submit" class="btn btn-default"> 修改</button>
+		    	</div>
+			</form>
+		</div>
+		<br>
+		<div class="media col-sm-offset-1 col-sm-7" th:each="question : ${pagination.data}">
+	    	<div class="media-left">
+		        <a href="#" th:text="${question.id}">
+		        </a>
+	        </div>
+	 		<div class="media-body">
+				<h4 class="media-heading">
+	    			<a th:href="@{'/manage/modifyquestion/'+${question.id}}" th:text="${question.head}"></a>
+	   			</h4>
+	        </div>
+	        <div class="media-right col-sm-offset-6">
+	        	<a class="btn btn-default" th:href="@{/manage/modifypaper/questiondelete(page=${pagination.page},paperid=${paper.id},questionid=${question.id},questionnum=${paper.questionNum},status=${paper.status})}" role="button">删除</a>
+	        </div>
+	     </div>
+	     <br>
+	     <nav aria-label="Page navigation" class="media col-sm-offset-3 col-sm-4" >
+	     	<ul class="pagination">
+	   			<li th:if="${pagination.showFirstPage}">
+					<a th:href="@{'/manage/modifypaper/'+${paper.id}(page=1)}" aria-label="Previous">
+						<span aria-hidden="true">&lt;&lt;</span>
+					</a>
+				</li>
+				<li th:if="${pagination.showPrevious}">
+					<a th:href="@{'/manage/modifypaper/'+${paper.id}(page=${pagination.page - 1})}"
+	                           aria-label="Previous">
+						<span aria-hidden="true">&lt;</span>
+					</a>
+	           	</li>
+	         	<li th:each="page : ${pagination.pages}" th:class="${pagination.page == page}? 'active' : ''">
+	          		<a th:href="@{'/manage/modifypaper/'+${paper.id}(page=${page})}" th:text="${page}"></a>
+	          	</li>
+	            <li th:if="${pagination.showNext}">
+	        		<a th:href="@{'/manage/modifypaper/'+${paper.id}(page=${pagination.page +1 })}"
+	                	aria-label="Previous">
+	           			<span aria-hidden="true">&gt;</span>
+	       			</a>
+	      		</li>
+	       		<li th:if="${pagination.showEndPage}">
+	                 <a th:href="@{'/manage/modifypaper/'+${paper.id}(page=${pagination.totalPage})}"
+	                    aria-label="Previous">
+	                 	<span aria-hidden="true">&gt;&gt;</span>
+	               	</a>
+	     		</li>
+			</ul>
+		</nav>
+		<br>
+		<div class="media col-sm-offset-2 col-sm-4">	
+			<button type="button" onclick="papermodifysubmit()" 
+				class="btn btn-primary"> 提交修改</button>
+			<button type="button" onclick="paperquestionadd()" 
+				class="btn btn-primary col-sm-offset-1"> 添加题目</button>
+			<button type="button"  onclick="paperdeletepost()"
+				class="btn btn-primary col-sm-offset-1"> 删除试卷</button>
+		</div>
+	</div>
+</body>
+</html>

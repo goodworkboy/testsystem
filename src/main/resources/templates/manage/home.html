@@ -9,13 +9,13 @@
 	<div th:insert="/manage/navigation :: nav"></div>
 	<div class="container-fluid ">
 		<form method="post" name="form">
-			<div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 media-body">
 				<button type="button" class="btn btn-primary navbar-center " onclick="question()">创建题目</button>
 			</div>
-			<div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 				<button type="button" class="btn btn-primary navbar-center" onclick="paper()" >创建试卷</button>
 			</div>
-			<div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 				<button type="button" class="btn btn-primary navbar-center" onclick="publish()"  >发布考试</button>
 			</div>
 		</form>
@@ -31,7 +31,7 @@
         document.form.submit();
     }
     function paper() {
-        document.form.action = "createpaper";
+        document.form.action = "papercreate";
         document.form.submit();
     }
     function publish() {

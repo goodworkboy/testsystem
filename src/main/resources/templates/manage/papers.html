@@ -7,42 +7,42 @@
 </head>
 <body>
 	<div th:insert="/manage/navigation :: nav"></div>
-	<div class="media-body col-sm-offset-2 col-sm-7">
-		<div class="media" th:each="question : ${pagination.data}">
+	<div class = "col-sm-offset-2 col-sm-5">
+		<div class="media" th:each="paper : ${pagination.data}">
 	    	<div class="media-left">
-		        <a href="#" th:text="${question.id}">
+		        <a href="#" th:text="${paper.id}">
 		        </a>
 	        </div>
 	 		<div class="media-body">
 				<h4 class="media-heading">
-	    			<a th:href="@{'/manage/modifyquestion/'+${question.id}}" th:text="${question.head}"></a>
+	    			<a th:href="@{'/manage/modifypaper/'+${paper.id}}" th:text="${paper.name}"></a>
 	   			</h4>
 	        </div>
 	     </div>
 	     <nav aria-label="Page navigation">
 	     	<ul class="pagination">
 	   			<li th:if="${pagination.showFirstPage}">
-					<a th:href="@{/manage/questions(page=1)}" aria-label="Previous">
+					<a th:href="@{/manage/papers(page=1)}" aria-label="Previous">
 						<span aria-hidden="true">&lt;&lt;</span>
 					</a>
 				</li>
 				<li th:if="${pagination.showPrevious}">
-					<a th:href="@{/manage/questions(page=${pagination.page - 1})}"
+					<a th:href="@{/manage/papers(page=${pagination.page - 1})}"
 	                           aria-label="Previous">
 						<span aria-hidden="true">&lt;</span>
 					</a>
 	           	</li>
 	         	<li th:each="page : ${pagination.pages}" th:class="${pagination.page == page}? 'active' : ''">
-	          		<a th:href="@{/manage/questions(page=${page})}" th:text="${page}"></a>
+	          		<a th:href="@{/manage/papers(page=${page})}" th:text="${page}"></a>
 	          	</li>
 	            <li th:if="${pagination.showNext}">
-	        		<a th:href="@{/manage/questions(page=${pagination.page +1 })}"
+	        		<a th:href="@{/manage/papers(page=${pagination.page +1 })}"
 	                	aria-label="Previous">
 	           			<span aria-hidden="true">&gt;</span>
 	       			</a>
 	      		</li>
 	       		<li th:if="${pagination.showEndPage}">
-	                 <a th:href="@{/manage/questions(page=${pagination.totalPage})}"
+	                 <a th:href="@{/manage/papers(page=${pagination.totalPage})}"
 	                    aria-label="Previous">
 	                 	<span aria-hidden="true">&gt;&gt;</span>
 	               	</a>
@@ -50,6 +50,5 @@
 			</ul>
 		</nav>
 	</div>
-	
 </body>
 </html>

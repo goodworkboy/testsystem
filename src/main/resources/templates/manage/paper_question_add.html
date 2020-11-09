@@ -6,11 +6,14 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 <body>
-	<div th:insert="/manage/navigation :: nav"></div>
-	<div class="media-body col-sm-offset-2 col-sm-7">
-		<div class="media" th:each="question : ${pagination.data}">
+	<div>
+		<h1 class="media-body col-sm-offset-4 col-sm-2"> 添加题目</h1>
+	</div>
+	<input type="hidden" class="form-control" id="paperid" name="paperid" th:value="${id}">
+	<div>
+		<div class="media col-sm-offset-1 col-sm-7" th:each="question : ${pagination.data}">
 	    	<div class="media-left">
-		        <a href="#" th:text="${question.id}">
+		        <a href="#" th:text="${question.id}"   id="questionIdhref">
 		        </a>
 	        </div>
 	 		<div class="media-body">
@@ -18,38 +21,41 @@
 	    			<a th:href="@{'/manage/modifyquestion/'+${question.id}}" th:text="${question.head}"></a>
 	   			</h4>
 	        </div>
+	        <div class="media-right col-sm-offset-6">
+	        	<button class="btn btn-default"  role="button" th:onclick="paperAddQuestion([[${id}]],[[${question.id}]])">添加</button>
+	        </div>
 	     </div>
-	     <nav aria-label="Page navigation">
+	     <br>
+	     <nav aria-label="Page navigation" class="media col-sm-offset-3 col-sm-4" >
 	     	<ul class="pagination">
 	   			<li th:if="${pagination.showFirstPage}">
-					<a th:href="@{/manage/questions(page=1)}" aria-label="Previous">
+					<a th:href="@{'/manage/modifypaper/paperQuestionAdd/'+${id}(page=1)}" aria-label="Previous">
 						<span aria-hidden="true">&lt;&lt;</span>
 					</a>
 				</li>
 				<li th:if="${pagination.showPrevious}">
-					<a th:href="@{/manage/questions(page=${pagination.page - 1})}"
+					<a th:href="@{'/manage/modifypaper/paperQuestionAdd/'+${id}(page=${pagination.page - 1})}"
 	                           aria-label="Previous">
 						<span aria-hidden="true">&lt;</span>
 					</a>
 	           	</li>
 	         	<li th:each="page : ${pagination.pages}" th:class="${pagination.page == page}? 'active' : ''">
-	          		<a th:href="@{/manage/questions(page=${page})}" th:text="${page}"></a>
+	          		<a th:href="@{'/manage/modifypaper/paperQuestionAdd/'+${id}(page=${page})}" th:text="${page}"></a>
 	          	</li>
 	            <li th:if="${pagination.showNext}">
-	        		<a th:href="@{/manage/questions(page=${pagination.page +1 })}"
+	        		<a th:href="@{'/manage/modifypaper/paperQuestionAdd/'+${id}(page=${pagination.page +1 })}"
 	                	aria-label="Previous">
 	           			<span aria-hidden="true">&gt;</span>
 	       			</a>
 	      		</li>
 	       		<li th:if="${pagination.showEndPage}">
-	                 <a th:href="@{/manage/questions(page=${pagination.totalPage})}"
+	                 <a th:href="@{'/manage/modifypaper/paperQuestionAdd/'+${id}(page=${pagination.totalPage})}"
 	                    aria-label="Previous">
 	                 	<span aria-hidden="true">&gt;&gt;</span>
 	               	</a>
 	     		</li>
 			</ul>
-		</nav>
+		</nav>	
 	</div>
-	
 </body>
 </html>

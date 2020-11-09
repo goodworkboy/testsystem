@@ -1,0 +1,1 @@
+alter table `paper` add column `question_num` int not null;
