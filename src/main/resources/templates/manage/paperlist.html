@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Serving Web Content</title>
+    <head th:insert="import :: head"></head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+	<div th:insert="/manage/navigation :: nav"></div>
+	<div>
+		<div class="media col-sm-offset-1 col-sm-7" th:each="paper : ${pagination.data}">
+	    	<div class="media-left">
+		        <a href="#" th:text="${paper.id}">
+		        </a>
+	        </div>
+	 		<div class="media-body">
+				<h4 class="media-heading">
+	    			<a th:href="@{'/manage/modifytest/paperInfo/'+${paper.id}(returnUrl='/manage/modifytest/papers/'+${testId})}" th:text="${paper.name}"></a>
+	   			</h4>
+	        </div>
+	        <div class="media-right col-sm-offset-6">
+	        	<a class="btn btn-default" th:href="@{'/manage/modifytest/'+${testId}(paperId=${paper.id})}" role="button">选择</a>
+	        </div>
+	     </div>
+	     <br>
+	     <nav aria-label="Page navigation" class="media col-sm-offset-3 col-sm-4" >
+	     	<ul class="pagination">
+	   			<li th:if="${pagination.showFirstPage}">
+					<a th:href="@{'/manage/modifytest/papers/'+${testId}(page=1)}" aria-label="Previous">
+						<span aria-hidden="true">&lt;&lt;</span>
+					</a>
+				</li>
+				<li th:if="${pagination.showPrevious}">
+					<a th:href="@{'/manage/modifytest/papers/'+${testId}(page=${pagination.page - 1})}"
+	                           aria-label="Previous">
+						<span aria-hidden="true">&lt;</span>
+					</a>
+	           	</li>
+	         	<li th:each="page : ${pagination.pages}" th:class="${pagination.page == page}? 'active' : ''">
+	          		<a th:href="@{'/manage/modifytest/papers/'+${testId}(page=${page})}" th:text="${page}"></a>
+	          	</li>
+	            <li th:if="${pagination.showNext}">
+	        		<a th:href="@{'/manage/modifytest/papers/'+${testId}(page=${pagination.page +1 })}"
+	                	aria-label="Previous">
+	           			<span aria-hidden="true">&gt;</span>
+	       			</a>
+	      		</li>
+	       		<li th:if="${pagination.showEndPage}">
+	                 <a th:href="@{'/manage/modifytest/papers/'+${testId}(page=${pagination.totalPage})}"
+	                    aria-label="Previous">
+	                 	<span aria-hidden="true">&gt;&gt;</span>
+	               	</a>
+	     		</li>
+			</ul>
+		</nav>
+
+</body>
+</html>

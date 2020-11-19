@@ -68,8 +68,8 @@ public class PaperService {
 			}
 			
 			PaperAndQuestion paperAndQuestion = new PaperAndQuestion();
-			paperAndQuestion.setPaperid(paper.getId());
-			paperAndQuestion.setQuestionid(question.getId());
+			paperAndQuestion.setPaperId(paper.getId());
+			paperAndQuestion.setQuestionId(question.getId());
 			paperAndQuestionMapper.insert(paperAndQuestion);
 		}
 	}
@@ -84,7 +84,7 @@ public class PaperService {
 		}
 		BeanUtils.copyProperties(paper, paperDTO);
 		PaperAndQuestionExample paperAndQuestionExample = new PaperAndQuestionExample();
-		paperAndQuestionExample.createCriteria().andPaperidEqualTo(id);
+		paperAndQuestionExample.createCriteria().andPaperIdEqualTo(id);
 		paperAndQuestionExample.setOrderByClause("questionid asc");
 		List<PaperAndQuestion> paperAndQuss = paperAndQuestionMapper.selectByExample(paperAndQuestionExample);
 		if(paperAndQuss== null || paperAndQuss.size() != paper.getQuestionNum()) {
@@ -92,7 +92,7 @@ public class PaperService {
 		}
 		List<Question> questionList = new ArrayList<Question>();
 		for(PaperAndQuestion paq : paperAndQuss) {
-			Question question =questionMapper.selectByPrimaryKey(paq.getQuestionid());
+			Question question =questionMapper.selectByPrimaryKey(paq.getQuestionId());
 			if(question == null) {
 				throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
 			}
@@ -184,8 +184,8 @@ public class PaperService {
 		paperExtMapper.delQuestion(paper);
 		PaperAndQuestionExample paperAndQuestionExample = new PaperAndQuestionExample();
 		paperAndQuestionExample.createCriteria()
-			.andPaperidEqualTo(questionDeleteDTO.getPaperId())
-			.andQuestionidEqualTo(questionDeleteDTO.getQuestionId());
+			.andPaperIdEqualTo(questionDeleteDTO.getPaperId())
+			.andQuestionIdEqualTo(questionDeleteDTO.getQuestionId());
 		paperAndQuestionMapper.deleteByExample(paperAndQuestionExample);
 		return true;
 	}
@@ -205,7 +205,7 @@ public class PaperService {
 	public void deletePaper(PaperDeleteDTO paperDeleteDTO) {
 		// TODO Auto-generated method stub
 		PaperAndQuestionExample paperAndQuestionExample = new PaperAndQuestionExample();
-		paperAndQuestionExample.createCriteria().andPaperidEqualTo(paperDeleteDTO.getPaperId());
+		paperAndQuestionExample.createCriteria().andPaperIdEqualTo(paperDeleteDTO.getPaperId());
 		paperAndQuestionMapper.deleteByExample(paperAndQuestionExample);
 		paperMapper.deleteByPrimaryKey(paperDeleteDTO.getPaperId());
 	}
@@ -219,18 +219,31 @@ public class PaperService {
 			return ResultDTO.errorOf(new CustomizeException(CustomizeErrorCode.PAPER_IS_USING));
 		}
 		PaperAndQuestionExample paperAndQuestionExample = new PaperAndQuestionExample();
-		paperAndQuestionExample.createCriteria().andPaperidEqualTo(paperPageDTO.getId())
-			.andQuestionidEqualTo(paperPageDTO.getQuestionId());
+		paperAndQuestionExample.createCriteria().andPaperIdEqualTo(paperPageDTO.getId())
+			.andQuestionIdEqualTo(paperPageDTO.getQuestionId());
 		if(paperAndQuestionMapper.selectByExample(paperAndQuestionExample).size()!=0) {
 			return ResultDTO.errorOf(CustomizeErrorCode.QUESTION_HAD_ADDED);
 		}
 		PaperAndQuestion paperAndQuestion = new PaperAndQuestion();
-		paperAndQuestion.setPaperid(paperPageDTO.getId());
-		paperAndQuestion.setQuestionid(paperPageDTO.getQuestionId());
+		paperAndQuestion.setPaperId(paperPageDTO.getId());
+		paperAndQuestion.setQuestionId(paperPageDTO.getQuestionId());
 		paperAndQuestionMapper.insert(paperAndQuestion);
 		paper.setQuestionNum(1);
 		paperExtMapper.incQuestion(paper);
 		return ResultDTO.okOf("/manage/modifypaper/"+paperPageDTO.getId());
+	}
+
+
+	public List<PaperDTO> list() {
+		// TODO Auto-generated method stub
+		List<Paper> papers = paperMapper.selectByExample(new PaperExample());
+		List<PaperDTO> lists=new ArrayList<PaperDTO>();
+		for(Paper paper:papers) {
+			PaperDTO paperDTO = new PaperDTO();
+			BeanUtils.copyProperties(paper, paperDTO);
+			lists.add(paperDTO);
+		}
+		return lists;
 	}
 
 

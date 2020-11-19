@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liugx.testsystem.mapper.UserAnswerMapper">
+  <resultMap id="BaseResultMap" type="com.liugx.testsystem.dto.QuestionAnswerDTO">
+    <result column="head" jdbcType="VARCHAR" property="head" />
+    <result column="answer_a" jdbcType="VARCHAR" property="answerA" />
+    <result column="answer_b" jdbcType="VARCHAR" property="answerB" />
+    <result column="answer_c" jdbcType="VARCHAR" property="answerC" />
+    <result column="answer_d" jdbcType="VARCHAR" property="answerD" />
+    <result column="answer" jdbcType="CHAR" property="answer" />
+    <result column="user_answer" jdbcType="CHAR" property="userAnswer" />
+  </resultMap>
+  <select id="selectUserQuestion" parameterType="com.liugx.testsystem.dto.UserQuestionQueryDTO" resultMap="BaseResultMap">
+  	select question.head as head, question.answer_a as answer_a ,question.answer_b as answer_b,question.answer_c as answer_c,
+  	question.answer_d as answer_d , question.answer as answer, usertestinfo.user_answer as user_answer
+  	from usertestinfo inner join question on usertestinfo.question_id = question.id
+  	where usertestinfo.user_id = #{userId} and usertestinfo.test_id = #{testId}
+  	limit #{offset},#{size};
+  </select>
+</mapper>

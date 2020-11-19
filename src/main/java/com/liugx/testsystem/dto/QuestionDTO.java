@@ -15,7 +15,7 @@ public class QuestionDTO {
 	private String answerC;
 	private String answerD;
 	private String answer;
-	private boolean status;
+	private Boolean status;
 	
 	public QuestionDTO(Question question) {
 		BeanUtils.copyProperties(this, question);

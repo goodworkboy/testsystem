@@ -1,0 +1,1 @@
+alter table `test` add column `duration` bigint not null;

@@ -3,3 +3,13 @@
     background-color: white;
     margin: 30px;
 }
+
+.user_answer{
+	background-color: #3c763d;
+	border-color: rgba(82,168,236,.8);
+	border-width: 3px;
+}
+
+.checkbox_true{
+	background-color: #0000a0;
+}

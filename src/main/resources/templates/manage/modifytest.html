@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Serving Web Content</title>
+    <head th:insert="import :: head"></head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+	<div th:insert="/manage/navigation :: nav"></div>
+	<div class="col-sm-offset-4 col-sm-3">
+		<h3 >Example page header</h1>
+	</div>
+	<div class="media col-sm-offset-1 col-sm-7">
+		<form  name = "form" id="form">
+			<label for="papername" class="media-left col-sm-2 control-label" >考试名称：</label>
+			<div class="media-body">
+				<input type="hidden" class="form-control" id="testId" name="testId" th:value="${test.id}">
+		    	<input type="text" class="form-control" id="testname" name="testname" th:value="${test.name}"  placeholder="考试名称">
+	    	</div>
+	    	<br>
+	    	<label for="papername" class="media-left col-sm-2 control-label" >考试开始时间：</label>
+			<div class="media-body">
+		    	<input type="datetime-local" class="form-control" id="startTime" name="startTime" th:value="${#dates.format(test.startTime,'yyyy-MM-dd''T''HH:mm')}" placeholder="考试开始时间">
+	    	</div>
+	    	<br>
+	    	<label for="papername" class="media-left col-sm-2 control-label" >考试时长：</label>
+			<div class="media-body">
+		    	<input type="time" class="form-control" id="duration" name="duration" th:value="${#dates.format(test.duration,'HH:mm:ss')}"  placeholder="考试时长：">
+	    	</div>
+	    	<br>
+	    	<label for="papername" class="media-left col-sm-2 control-label" >试卷名称：</label>
+			<div class="media-body">
+		    	<h4 class="media-heading">
+	    			<a th:href="@{'/manage/modifytest/paperInfo/'+${test.paperId}(returnUrl='/manage/modifytest/'+${test.id})}" th:text="${test.paperName}"></a>
+	   			</h4>
+		    	<input type="hidden" class="form-control" id="paperId" name="paperId" th:value="${test.paperId}">
+	    	</div>
+	    	<div class="media-left">
+		      <a th:href="@{'/manage/modifytest/papers/'+${test.id}}" 
+		      		role = "button" class="btn btn-default">选择</a>
+		    </div>
+	    	<br>
+	    	<br>
+	    	<div class="col-sm-offset-4 col-sm-3">
+		      <button type="button" class="btn btn-primary" onclick="modifytestsubmit()">提交</button>
+		    </div>
+		</form>
+		</div>
+</body>
+</html>

@@ -39,5 +39,13 @@
     </table>
 	<table tableName="paperandques" domainObjectName="PaperAndQuestion" >
     </table>
+    <table tableName="test" domainObjectName="Test" >
+    	<generatedKey column="id" sqlStatement="Mysql" identity="true"/>
+    </table>
+    <table tableName="userandtest" domainObjectName="UserAndTest" >
+    	<generatedKey column="id" sqlStatement="Mysql" identity="true"/>
+    </table>
+    <table tableName="usertestinfo" domainObjectName="UserTestInfo" >
+    </table>
   </context>
 </generatorConfiguration>

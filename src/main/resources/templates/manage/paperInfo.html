@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Serving Web Content</title>
+    <head th:insert="import :: head"></head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+	<div th:insert="/manage/navigation :: nav"></div>
+	<div class="page-header ">
+	  <h2 align="center" th:text="${paper.name}"></h2>
+	</div>
+	<div th:each="question : ${pagination.data}">
+		<div>	
+			<h4 align="center" th:text="${question.head}"></h4>
+		</div>
+		<div>
+			<form class="form-horizontal col-sm-offset-3">
+			  <div class="form-group">
+			    <label for="inputAnswerA" class="col-sm-2 control-label">A：</label>
+			    <div class="col-sm-5">
+			    	<input type="text" class="form-control" id="inputAnswerA" name="answerA" th:value="${question.answerA}" readonly>
+			    </div>
+			  </div>
+			  <div class="form-group">
+			    <label for="inputAnswerB" class="col-sm-2 control-label">B：</label>
+			    <div class="col-sm-5">
+			      <input type="text" class="form-control" id="inputAnswerB" name="answerB" th:value="${question.answerB}" readonly>
+			    </div>
+			  </div>
+			  <div class="form-group">
+			    <label for="inputAnswerC" class="col-sm-2 control-label">C：</label>
+			    <div class="col-sm-5">
+			      <input type="text" class="form-control" id="inputAnswerC" name="answerC" th:value="${question.answerC}" readonly>
+			    </div>
+			  </div>
+			  <div class="form-group">
+			    <label for="inputAnswerD" class="col-sm-2 control-label">D：</label>
+			    <div class="col-sm-5">
+			      <input type="text" class="form-control" id="inputAnswerD" name="answerD" th:value="${question.answerD}" readonly>
+			    </div>
+			  </div>
+			  <div class="form-group">
+			  	<div class="col-sm-offset-2 col-sm-10">
+			  		<label class="label-center"> 正确答案:
+			        </label>
+			  		<label class="label-center" th:text="${question.answer}">
+					</label>
+			  	</div>
+			  </div>
+			  <div class="alert alert-danger form-group" th:text="${error}" th:if="${error != null}"></div>
+			  <input type="hidden" class="form-control" id="inputstatus" name="status" th:value="${question.status}">
+			  <input type="hidden" class="form-control" id="inputid" name="id" th:value="${question.id}">
+			</form>
+			<div class="col-sm-offset-4 col-sm-1">
+	        	<a class="btn btn-default"  th:href="@{'/manage/modifytest/paperInfo/'+${paper.id}(page=${pagination.page - 1},returnUrl=${returnUrl})}" role="button" th:if="${pagination.showPrevious}">上一题</a>
+	        </div>
+	        <div class="col-sm-offset-2 col-sm-1">
+	        	<a class="btn btn-default" th:href="@{'/manage/modifytest/paperInfo/'+${paper.id}(page=${pagination.page + 1},returnUrl=${returnUrl})}"  role="button"
+	        	 		th:if = "${pagination.showNext}">下一题</a>
+	        	<a class="btn btn-default" th:href="@{${returnUrl}}"  role="button"
+	        	 		th:if = "${pagination.showNext == false}">返回</a>
+	        </div>
+		</div>
+		
+	</div>
+</body>
+</html>

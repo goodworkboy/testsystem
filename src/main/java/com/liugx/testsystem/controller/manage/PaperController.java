@@ -159,4 +159,25 @@ public class PaperController {
 	public Object paperQuestionAddSubmit(@RequestBody PaperPageDTO paperPageDTO) {
 		return	paperService.addQuestion(paperPageDTO);
 	}
+	
+	/**
+	 * 
+	 * @author liugx
+	 *接受修改考试的时候查看试卷的请求
+	 *得到一个能显示试卷具体信息的页面
+	 */
+	@GetMapping("/manage/modifytest/paperInfo/{id}")
+	public String paperInfo(@PathVariable("id")Long Id
+			,@RequestParam(name = "returnUrl",defaultValue = "/manage/home")String returnUrl
+			,@RequestParam(name = "page", defaultValue = "1") Integer page
+            ,@RequestParam(name = "size", defaultValue = "1") Integer size
+			,Model model) {
+		PaperDTO paper = paperService.getById(Id);
+		PaginationDTO<QuestionDTO> paginationDTO = paperService.list(page,size,paper);
+		model.addAttribute("paper", paper);
+		model.addAttribute("pagination", paginationDTO);
+		model.addAttribute("returnUrl", returnUrl);
+		return "/manage/paperInfo";
+	}
+	
 }
