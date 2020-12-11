@@ -29,7 +29,6 @@ public class ManageHomeController {
 	}
 	
 	
-	
 	@PostMapping("/manage/createquestion")
 	public String goToCreateQuestion() {
 		return "/manage/createquestion";

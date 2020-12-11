@@ -3,9 +3,12 @@ package com.liugx.testsystem.service.manage;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.Resource;
+
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
 
 import com.liugx.testsystem.dto.PaginationDTO;
@@ -27,6 +30,9 @@ public class QuestionService {
 
 	@Autowired
 	private QuestionMapper questionMapper;
+	
+	@Resource(name ="template")
+	private ValueOperations<String, Object> valueOperations;
 	
 	public boolean insert(QuestionCreateDTO questionDTO) {
 		// TODO Auto-generated method stub

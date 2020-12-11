@@ -15,3 +15,5 @@ mvn -Dmybatis.generator.overwrite=true mybatis-generator:generate
 [mysql 菜鸟教程](https://www.runoob.com/mysql/mysql-insert-query.html)    
 [Thymeleaf](https://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html#setting-attribute-values)
 [mybatis generator](http://mybatis.org/generator/index.html)
+[jedis github](https://github.com/redis/jedis)
+[jedis api](http://redis.github.io/jedis/)

@@ -16,7 +16,7 @@
 		      </form>
 		      <ul class="nav navbar-nav navbar-right" >
 		        <li><a href="/user/home">Home</a></li>
-		        <li><a href="/profile/replies">通知 <span class="badge">0</span></a>
+		        <li><a href="/user/notice">通知 <span class="badge message" th:text="${session.unreadCount}" th:if="${session.unreadCount !=  0}">0</span></a>
                 </li>
 		        <li class="dropdown">
 		          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" 
@@ -24,7 +24,7 @@
 		          <ul class="dropdown-menu">
 		            <li><a href="/user/allTest">所有考试</a></li>
 		            <li><a href="/user/notBeginTest">未开始的考试</a></li>
-		            <li><a href="/user/startingTest">真正进行的考试</a></li>
+		            <li><a href="/user/startingTest">正在进行的考试</a></li>
 		            <li><a href="/user/testhistory">已参加的考试</a></li>
 		            <li role="separator" class="divider"></li>
 		            <li><a href="/user/logout">退出登录</a></li>

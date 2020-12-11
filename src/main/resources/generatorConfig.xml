@@ -6,6 +6,7 @@
 <generatorConfiguration>
   <context id="TestSystem" targetRuntime="MyBatis3">
   	<plugin type="org.mybatis.generator.plugins.RowBoundsPlugin"></plugin>
+  	<plugin type="org.mybatis.generator.plugins.CachePlugin"></plugin>
     <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
         connectionURL="jdbc:mysql://localhost:3306/testsystem?useSSL=false&amp;serverTimezone=UTC"
         userId="root"
@@ -31,21 +32,35 @@
     </javaClientGenerator>
 
     <table tableName="user" domainObjectName="User" >
+    	<property name="cache_type" value="com.liugx.testsystem.cache.mybatis.MybatisCache" />
     </table>
-	<table tableName="question" domainObjectName="Question" >
+	<table tableName="question" domainObjectName="Question">
+		<property name="cache_type" value="com.liugx.testsystem.cache.mybatis.MybatisCache" />
     </table>
     <table tableName="paper" domainObjectName="Paper" >
+    	<property name="cache_type" value="com.liugx.testsystem.cache.mybatis.MybatisCache" />
     	<generatedKey column="id" sqlStatement="Mysql" identity="true"/>
     </table>
 	<table tableName="paperandques" domainObjectName="PaperAndQuestion" >
+		<property name="cache_type" value="com.liugx.testsystem.cache.mybatis.MybatisCache" />
     </table>
     <table tableName="test" domainObjectName="Test" >
+    	<property name="cache_type" value="com.liugx.testsystem.cache.mybatis.MybatisCache" />
     	<generatedKey column="id" sqlStatement="Mysql" identity="true"/>
     </table>
     <table tableName="userandtest" domainObjectName="UserAndTest" >
+    	<property name="cache_type" value="com.liugx.testsystem.cache.mybatis.MybatisCache" />
     	<generatedKey column="id" sqlStatement="Mysql" identity="true"/>
     </table>
     <table tableName="usertestinfo" domainObjectName="UserTestInfo" >
+    	<property name="cache_type" value="com.liugx.testsystem.cache.mybatis.MybatisCache" />
+    </table>
+    <table tableName="notice" domainObjectName="Notice" >
+    	<property name="cache_type" value="com.liugx.testsystem.cache.mybatis.MybatisCache" />
+    	<generatedKey column="id" sqlStatement="Mysql" identity="true"/>
+    </table>
+    <table tableName="message" domainObjectName="Message" >
+    	<property name="cache_type" value="com.liugx.testsystem.cache.mybatis.MybatisCache" />
     </table>
   </context>
 </generatorConfiguration>

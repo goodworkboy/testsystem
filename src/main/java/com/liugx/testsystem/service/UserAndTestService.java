@@ -17,6 +17,7 @@ import com.liugx.testsystem.dto.TestDTO;
 import com.liugx.testsystem.dto.UserTestQueryDTO;
 import com.liugx.testsystem.execption.CustomizeErrorCode;
 import com.liugx.testsystem.execption.CustomizeException;
+import com.liugx.testsystem.execption.ICustomizeErrorCode;
 import com.liugx.testsystem.mapper.QuestionExtMapper;
 import com.liugx.testsystem.mapper.QuestionMapper;
 import com.liugx.testsystem.mapper.TestExtMapper;
@@ -156,6 +157,19 @@ public class UserAndTestService {
 		paginationDTO.setPagination(totalPage, page);
 		paginationDTO.setData(tests);
 		return paginationDTO;
+	}
+	
+	public UserTestDTO listStartingTest(Long testId, User user) {
+		// TODO Auto-generated method stub
+		UserTestQueryDTO userTestQueryDTO = new UserTestQueryDTO();
+		userTestQueryDTO.setUserId(user.getId());
+		userTestQueryDTO.setCurrentTime(System.currentTimeMillis());
+		userTestQueryDTO.setTestId(testId);
+		List<UserTestDTO> tests = userTestMapper.selectStartingTest(userTestQueryDTO);
+		if(tests==null||tests.size()==0) {
+			throw new CustomizeException(CustomizeErrorCode.USER_NOT_SIGN_UP);
+		}
+		return tests.get(0);
 	}
 
 	public Object testIsEnded(TestIdDTO testIdDTO) {

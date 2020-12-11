@@ -85,7 +85,7 @@ public class PaperService {
 		BeanUtils.copyProperties(paper, paperDTO);
 		PaperAndQuestionExample paperAndQuestionExample = new PaperAndQuestionExample();
 		paperAndQuestionExample.createCriteria().andPaperIdEqualTo(id);
-		paperAndQuestionExample.setOrderByClause("questionid asc");
+		paperAndQuestionExample.setOrderByClause("question_id asc");
 		List<PaperAndQuestion> paperAndQuss = paperAndQuestionMapper.selectByExample(paperAndQuestionExample);
 		if(paperAndQuss== null || paperAndQuss.size() != paper.getQuestionNum()) {
 			throw new CustomizeException(CustomizeErrorCode.SOME_QUESTIONS_OF_PAPER_DELETED);

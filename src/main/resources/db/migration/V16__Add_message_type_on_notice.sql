@@ -1,0 +1,1 @@
+alter table `notice` add column `message_type` int not null; 

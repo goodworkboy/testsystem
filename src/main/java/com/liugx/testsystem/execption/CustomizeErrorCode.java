@@ -19,7 +19,9 @@ public enum CustomizeErrorCode implements ICustomizeErrorCode{
 	TEST_IS_STARTED(2014,"测试已经开始了！"), 
 	HAD_SIGN_UP(2015,"您已报名该场考试！"), 
 	TEST_IS_ENDED(2016,"测试已结束！"), 
-	USER_NOT_SIGN_UP(2017,"用户未报名该考试！")
+	USER_NOT_SIGN_UP(2017,"用户未报名该考试！"), 
+	MESSAGE_NOT_FOUND(2018,"消息未找到！"), 
+	READ_MESSAGE_FAIL(2019,"读取消息失败！"), 
 	;
 	
 	private Integer code;

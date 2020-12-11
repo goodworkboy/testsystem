@@ -44,7 +44,7 @@
 			    <label for="inputAnswerD" class="col-sm-2 control-label">D：</label>
 			    <div class="col-sm-5 ">
 			      <input type="text" class="form-control"  id="inputAnswerD" name="answerD" th:value="${question.answerD}" 
-			      		th:attr="class= ${question.userAnswer == 'D'} ? user_answer:form-control"
+			      		th:classappend= "${question.userAnswer == 'D'} ? user_answer:''"
 			      readonly>
 			    </div>
 			  </div>

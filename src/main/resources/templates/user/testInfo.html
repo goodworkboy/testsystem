@@ -7,35 +7,24 @@
 <body>
 	<div th:insert="/user/navigation :: nav"></div>
 	<div class="media col-sm-offset-3 col-sm-6">
-		<form  name = "form" id="form">
-			<label for="papername" class="media-left col-sm-2 control-label" >考试名称：</label>
-			<div class="media-body">
-		    	<label th:text="${testInfo.name}" class="control-label" ></label>
-	    	</div>
-	    	<label for="papername" class="media-left col-sm-2 control-label" >开始时间：</label>
-			<div class="media-body">
-		    	<label th:text="${#dates.format(testInfo.startTime,'yyyy-MM-dd HH:mm')}" class="control-label" ></label>
-	    	</div>
-	    	<label for="papername" class="media-left col-sm-2 control-label" >结束时间：</label>
-			<div class="media-body">
-		    	<label th:text="${#dates.format(testInfo.endTime,'yyyy-MM-dd HH:mm')}" class="control-label" ></label>
-	    	</div>
-	    	<label for="papername" class="media-left col-sm-2 control-label" >考试时长：</label>
-			<div class="media-body">
-				<label th:text="${#dates.format(testInfo.duration,'HH:mm:ss')}"  class="control-label" ></label>
-	    	</div>
-	    	<label for="papername" class="media-left col-sm-2 control-label" >试卷名称：</label>
-			<div class="media-body">
-		    	<label th:text="${testInfo.paperName}"  class="control-label" ></label>
-	    	</div>
-	    	<label for="papername" class="media-left col-sm-2 control-label" >题目总数</label>
-			<div class="media-body">
-		    	<label th:text="${testInfo.questionNum}"  class="control-label" ></label>
-	    	</div>
-	    	<div class="col-sm-offset-4 col-sm-3">
-		    </div>
-		</form>
+		<dl class="dl-horizontal">
+		  <dt>考试名称：</dt>
+		  <dd th:text="${testInfo.name}"></dd>
+		  <dt>开始时间：</dt>
+		  <dd th:text="${#dates.format(testInfo.startTime,'yyyy-MM-dd HH:mm')}"></dd>
+		  <dt>结束时间：</dt>
+		  <dd th:text="${#dates.format(testInfo.endTime,'yyyy-MM-dd HH:mm')}"></dd>
+		  <dt>考试时长：</dt>
+		  <dd th:text="${#dates.format(testInfo.duration,'HH:mm:ss')}"></dd>
+		  <dt>试卷名称：</dt>
+  		  <dd th:text="${testInfo.paperName}"></dd>
+  		  <dt>题目总数：</dt>
+  		  <dd th:text="${testInfo.questionNum}">...</dd>
+		</dl>
 		</div>
-	
+		<div class="col-sm-12" align="center">
+			<button class="btn btn-default " th:onclick = "signUp([[${testInfo.id}]])">报名
+	       	</button>
+		</div>
 </body>
 </html>

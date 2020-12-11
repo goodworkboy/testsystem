@@ -44,7 +44,8 @@ public class AuthorizeController {
 		userdto.setPassword(password);
 		User user=userService.selectUser(userdto);
 		Cookie cookie = new Cookie("token", user.getId().toString());
-		cookie.setPath("/");
+		cookie.setPath("/user/");
+		cookie.setMaxAge(60*60*24);
 		response.addCookie(cookie);
 		if(user!=null) {
 			request.setAttribute("user", user);
@@ -58,9 +59,11 @@ public class AuthorizeController {
 	@GetMapping(value="/user/logout")
 	public String logout(HttpServletRequest request,
             HttpServletResponse response) {
+		User user = (User)request.getAttribute("user");
 		request.getSession().removeAttribute("user");
+		if(user==null) return "redirect:/";
         Cookie cookie = new Cookie("token", null);
-        cookie.setPath("/");
+        cookie.setPath("/user/");
         cookie.setMaxAge(0);
         response.addCookie(cookie);
 		return "redirect:/";

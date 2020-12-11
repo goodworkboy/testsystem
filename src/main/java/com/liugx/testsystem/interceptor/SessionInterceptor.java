@@ -10,11 +10,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.liugx.testsystem.mapper.NoticeMapper;
 import com.liugx.testsystem.mapper.UserMapper;
 import com.liugx.testsystem.model.User;
+import com.liugx.testsystem.service.NoticeService;
 
 @Service
 public class SessionInterceptor implements HandlerInterceptor {
+	
+	@Autowired
+	private NoticeService noticeService;
 	
 	@Autowired
 	private UserMapper userMapper;
@@ -32,7 +37,9 @@ public class SessionInterceptor implements HandlerInterceptor {
 					User user = userMapper.selectByPrimaryKey(id);
                     if (user != null) {
                         HttpSession session = request.getSession();
+                        int unreadCount = noticeService.unreadCount(user);
                         session.setAttribute("user", user);
+                        session.setAttribute("unreadCount", unreadCount);
                     }
                     return true;
                 }

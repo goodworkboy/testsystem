@@ -15,7 +15,7 @@
 	        </div>
 	 		<div class="media-body">
 				<h4 class="media-heading">
-	    			<a href="#" th:text="${test.testName}"></a>
+	    			<a th:href="@{/user/preTest(testId=${test.testId})}" th:text="${test.testName}"></a>
 	   			</h4>
 	        </div>
 	        <div class="media-right col-sm-offset-6">

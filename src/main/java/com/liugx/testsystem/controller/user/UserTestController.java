@@ -18,6 +18,7 @@ import com.liugx.testsystem.dto.ResultDTO;
 import com.liugx.testsystem.dto.TestDTO;
 import com.liugx.testsystem.dto.TestIdDTO;
 import com.liugx.testsystem.dto.UserAnswerDTO;
+import com.liugx.testsystem.dto.UserTestDTO;
 import com.liugx.testsystem.execption.CustomizeException;
 import com.liugx.testsystem.model.User;
 import com.liugx.testsystem.service.UserAndTestService;
@@ -75,6 +76,15 @@ public class UserTestController {
 		TestDTO testDTO = testService.selectById(testId);
 		model.addAttribute("testInfo", testDTO);
 		return "/user/testInfo";
+	}
+	
+	
+	@GetMapping("/user/test/testInfo1/{testId}")
+	public String testInfo1(Model model
+			,@PathVariable("testId")Long testId) {
+		TestDTO testDTO = testService.selectById(testId);
+		model.addAttribute("testInfo", testDTO);
+		return "/user/testInfo1";
 	}
 	
 	//未开始的考试
@@ -163,5 +173,16 @@ public class UserTestController {
 		return "/user/testhistory";
 	}
 	
+	@GetMapping("/user/preTest")
+	public String preTest(Model model
+			,@RequestParam(value="testId")Long testId
+			,HttpServletRequest request) {
+		User user = (User)request.getSession().getAttribute("user");
+		TestDTO testDTO = testService.selectById(testId);
+		UserTestDTO userTestDTO=userAndTestService.listStartingTest(testId,user);
+		model.addAttribute("testInfo", testDTO);
+		model.addAttribute("userTest", userTestDTO);
+		return "/user/preTest";
+	}
 	
 }
