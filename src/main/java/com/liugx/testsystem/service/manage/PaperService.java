@@ -18,6 +18,7 @@ import com.liugx.testsystem.dto.ResultDTO;
 import com.liugx.testsystem.dto.paper.PaperDeleteDTO;
 import com.liugx.testsystem.dto.paper.PaperPageDTO;
 import com.liugx.testsystem.dto.paper.QuestionDeleteDTO;
+import com.liugx.testsystem.enums.GeneratorIdEnum;
 import com.liugx.testsystem.execption.CustomizeErrorCode;
 import com.liugx.testsystem.execption.CustomizeException;
 import com.liugx.testsystem.mapper.PaperAndQuestionMapper;
@@ -30,6 +31,7 @@ import com.liugx.testsystem.model.PaperAndQuestionExample;
 import com.liugx.testsystem.model.PaperExample;
 import com.liugx.testsystem.model.Question;
 import com.liugx.testsystem.model.QuestionExample;
+import com.liugx.testsystem.util.IdAutoGeneratorUtil;
 
 import ch.qos.logback.core.joran.util.beans.BeanUtil;
 
@@ -56,6 +58,7 @@ public class PaperService {
 		paper.setCreateTime(System.currentTimeMillis());
 		paper.setModifyTime(paper.getCreateTime());
 		paper.setQuestionNum(questionIds.size());
+		paper.setId(IdAutoGeneratorUtil.generatorId(GeneratorIdEnum.PAPER));
 		paperMapper.insertSelective(paper);
 		for(Long id:questionIds) {
 			Question question =questionMapper.selectByPrimaryKey(id);

@@ -16,6 +16,7 @@ import com.liugx.testsystem.dto.QuestionCreateDTO;
 import com.liugx.testsystem.dto.QuestionDTO;
 import com.liugx.testsystem.dto.QuestionQueryDTO;
 import com.liugx.testsystem.dto.paper.PaperPageDTO;
+import com.liugx.testsystem.enums.GeneratorIdEnum;
 import com.liugx.testsystem.execption.CustomizeErrorCode;
 import com.liugx.testsystem.execption.CustomizeException;
 import com.liugx.testsystem.mapper.PaperMapper;
@@ -24,6 +25,7 @@ import com.liugx.testsystem.model.Paper;
 import com.liugx.testsystem.model.PaperExample;
 import com.liugx.testsystem.model.Question;
 import com.liugx.testsystem.model.QuestionExample;
+import com.liugx.testsystem.util.IdAutoGeneratorUtil;
 
 @Service
 public class QuestionService {
@@ -34,10 +36,12 @@ public class QuestionService {
 	@Resource(name ="template")
 	private ValueOperations<String, Object> valueOperations;
 	
+	
 	public boolean insert(QuestionCreateDTO questionDTO) {
 		// TODO Auto-generated method stub
 		Question question = new Question();
 		BeanUtils.copyProperties(questionDTO, question);
+		question.setId(IdAutoGeneratorUtil.generatorId(GeneratorIdEnum.QUESTION));
 		if(questionMapper.insertSelective(question)==0) {
 			return false;
 		}

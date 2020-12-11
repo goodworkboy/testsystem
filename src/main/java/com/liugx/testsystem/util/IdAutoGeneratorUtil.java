@@ -10,6 +10,8 @@ import org.springframework.data.redis.core.RedisConnectionUtils;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
+import com.liugx.testsystem.enums.GeneratorIdEnum;
+
 @Component
 public class IdAutoGeneratorUtil {
 	
@@ -43,5 +45,10 @@ public class IdAutoGeneratorUtil {
 		}
 		redisTemplate.opsForList().rightPushAll(okey+"List",klist);
 		RedisConnectionUtils.unbindConnection(redisTemplate.getConnectionFactory()); 
+	}
+
+	public static Long generatorId(GeneratorIdEnum notice) {
+		// TODO Auto-generated method stub
+		return generatorId(notice.getKey());
 	}
 }

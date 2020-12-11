@@ -15,6 +15,7 @@ import com.liugx.testsystem.dto.UserAnswerDTO;
 import com.liugx.testsystem.dto.UserTestDTO;
 import com.liugx.testsystem.dto.TestDTO;
 import com.liugx.testsystem.dto.UserTestQueryDTO;
+import com.liugx.testsystem.enums.GeneratorIdEnum;
 import com.liugx.testsystem.execption.CustomizeErrorCode;
 import com.liugx.testsystem.execption.CustomizeException;
 import com.liugx.testsystem.execption.ICustomizeErrorCode;
@@ -34,6 +35,7 @@ import com.liugx.testsystem.model.UserAndTestExample;
 import com.liugx.testsystem.model.UserTestInfo;
 import com.liugx.testsystem.model.UserTestInfoExample;
 import com.liugx.testsystem.model.UserTestInfoKey;
+import com.liugx.testsystem.util.IdAutoGeneratorUtil;
 
 @Service
 public class UserAndTestService {
@@ -58,6 +60,8 @@ public class UserAndTestService {
 	@Autowired
 	private QuestionMapper questionMapper;
 	
+	
+	
 	public Object signUp(TestIdDTO testIdDTO, User user) {
 		// TODO Auto-generated method stub
 		UserAndTestExample userAndTestExample = new UserAndTestExample();
@@ -76,6 +80,7 @@ public class UserAndTestService {
 		userAndTest.setTestId(testIdDTO.getTestId());
 		userAndTest.setCreateTime(System.currentTimeMillis());
 		userAndTest.setModifyTime(userAndTest.getCreateTime());
+		userAndTest.setId(IdAutoGeneratorUtil.generatorId(GeneratorIdEnum.USER_AND_TEST.getKey()));
 		userAndTestMapper.insertSelective(userAndTest);
 		return null;
 	}

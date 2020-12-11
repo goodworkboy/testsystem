@@ -8,9 +8,11 @@ import org.springframework.stereotype.Service;
 
 import com.liugx.testsystem.dto.RegisterDTO;
 import com.liugx.testsystem.dto.UserDTO;
+import com.liugx.testsystem.enums.GeneratorIdEnum;
 import com.liugx.testsystem.mapper.UserMapper;
 import com.liugx.testsystem.model.User;
 import com.liugx.testsystem.model.UserExample;
+import com.liugx.testsystem.util.IdAutoGeneratorUtil;
 
 import ch.qos.logback.core.joran.util.beans.BeanUtil;
 
@@ -46,6 +48,7 @@ public class UserService {
 		// TODO Auto-generated method stub
 		User insertUser =new User();
 		BeanUtils.copyProperties(registerDTO,insertUser);
+		insertUser.setId(IdAutoGeneratorUtil.generatorId(GeneratorIdEnum.USER.getKey()));
 		if(userMapper.insertSelective(insertUser)==0) {
 			return false;
 		}else {

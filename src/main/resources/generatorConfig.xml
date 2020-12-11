@@ -39,25 +39,21 @@
     </table>
     <table tableName="paper" domainObjectName="Paper" >
     	<property name="cache_type" value="com.liugx.testsystem.cache.mybatis.MybatisCache" />
-    	<generatedKey column="id" sqlStatement="Mysql" identity="true"/>
     </table>
 	<table tableName="paperandques" domainObjectName="PaperAndQuestion" >
 		<property name="cache_type" value="com.liugx.testsystem.cache.mybatis.MybatisCache" />
     </table>
     <table tableName="test" domainObjectName="Test" >
     	<property name="cache_type" value="com.liugx.testsystem.cache.mybatis.MybatisCache" />
-    	<generatedKey column="id" sqlStatement="Mysql" identity="true"/>
     </table>
     <table tableName="userandtest" domainObjectName="UserAndTest" >
     	<property name="cache_type" value="com.liugx.testsystem.cache.mybatis.MybatisCache" />
-    	<generatedKey column="id" sqlStatement="Mysql" identity="true"/>
     </table>
     <table tableName="usertestinfo" domainObjectName="UserTestInfo" >
     	<property name="cache_type" value="com.liugx.testsystem.cache.mybatis.MybatisCache" />
     </table>
     <table tableName="notice" domainObjectName="Notice" >
     	<property name="cache_type" value="com.liugx.testsystem.cache.mybatis.MybatisCache" />
-    	<generatedKey column="id" sqlStatement="Mysql" identity="true"/>
     </table>
     <table tableName="message" domainObjectName="Message" >
     	<property name="cache_type" value="com.liugx.testsystem.cache.mybatis.MybatisCache" />

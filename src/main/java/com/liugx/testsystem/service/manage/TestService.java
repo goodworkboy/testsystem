@@ -13,6 +13,7 @@ import com.liugx.testsystem.dto.PaginationDTO;
 import com.liugx.testsystem.dto.ResultDTO;
 import com.liugx.testsystem.dto.TestCreateDTO;
 import com.liugx.testsystem.dto.TestDTO;
+import com.liugx.testsystem.enums.GeneratorIdEnum;
 import com.liugx.testsystem.enums.MessageTypeEnum;
 import com.liugx.testsystem.enums.NotificationStatusEnum;
 import com.liugx.testsystem.enums.ReceiverEnum;
@@ -28,6 +29,7 @@ import com.liugx.testsystem.model.Paper;
 import com.liugx.testsystem.model.Test;
 import com.liugx.testsystem.model.TestExample;
 import com.liugx.testsystem.model.User;
+import com.liugx.testsystem.util.IdAutoGeneratorUtil;
 import com.liugx.testsystem.util.NotifyUserStrategyUtil;
 
 @Service
@@ -39,11 +41,9 @@ public class TestService {
 	@Autowired
 	private TestMapper testMapper;
 	
-	@Autowired 
-	private NoticeMapper noticeMapper;
-	
 	@Autowired
-	private MessageMapper messageMapper;
+	private NotifyService notifyService;
+	
 	
 	public void  publishTest(TestCreateDTO testCreateDTO) {
 		// TODO Auto-generated method stub
@@ -55,7 +55,6 @@ public class TestService {
 		paper.setStatus(true);
 		paperMapper.updateByPrimaryKey(paper);
 		test.setDuration(testCreateDTO.getDuration().getTime());
-		System.out.println(test.getDuration());
 		test.setStartTime(testCreateDTO.getStartTime().getTime());
 		test.setEndTime(test.getStartTime()+test.getDuration());
 		test.setCreateTime(System.currentTimeMillis());
@@ -63,36 +62,14 @@ public class TestService {
 		test.setPaperId(testCreateDTO.getPaperId());
 		test.setId(testCreateDTO.getId());
 		test.setName(testCreateDTO.getName());
-		testMapper.insertSelective(test);
-		createNotify(test,ReceiverEnum.ALL_USER, MessageTypeEnum.PUBLISH_NEW_TEST);
+		test.setId(IdAutoGeneratorUtil.generatorId(GeneratorIdEnum.TEST));
+		test.setStatus(false);
+		System.out.println(test.getId());
+		testMapper.insert(test);
+		notifyService.createNotify(test,ReceiverEnum.ALL_USER, MessageTypeEnum.PUBLISH_NEW_TEST);
 	}
 	
-	private void createNotify(Test test,ReceiverEnum recevierType,MessageTypeEnum messageType) {
-		Notice notice = new Notice();
-		notice.setTestId(test.getId());
-		notice.setReciverType(recevierType.getType());
-		notice.setMessageType(messageType.getType());
-		notice.setStatus(NotificationStatusEnum.UNREADED.getStatus());
-		notice.setCreateTime(System.currentTimeMillis());
-		notice.setTestName(test.getName());
-		noticeMapper.insert(notice);
-		notifyUser(notice);
-	}
-
-	private void notifyUser(Notice notice) {
-		NotifiedUser notifiedUser = NotifyUserStrategyUtil.getNotifiedUserStrategy(notice.getReciverType());
-		List<User> users = notifiedUser.getUsers(notice.getTestId());
-		Message message = new Message();
-		message.setTestId(notice.getTestId());
-		message.setStatus(NotificationStatusEnum.UNREADED.getStatus());
-		message.setCreateTime(notice.getCreateTime());
-		message.setMessageType(notice.getMessageType());
-		message.setMessage(MessageTypeEnum.nameOfType(message.getMessageType())+notice.getTestName());
-		users.forEach(user -> {
-			message.setUserId(user.getId());
-			messageMapper.insert(message);
-		});
-	}
+	
 	
 	public PaginationDTO list(Integer page, Integer size) {
 		// TODO Auto-generated method stub
@@ -169,7 +146,7 @@ public class TestService {
 		test.setPaperId(testCreateDTO.getPaperId());
 		test.setName(testCreateDTO.getName());
 		testMapper.updateByPrimaryKey(test);
-		createNotify(test,ReceiverEnum.USER_OF_TEST, MessageTypeEnum.MODIFY_TEST);
+		notifyService.createNotify(test,ReceiverEnum.USER_OF_TEST, MessageTypeEnum.MODIFY_TEST);
 		return null;
 	}
 
