@@ -2,35 +2,32 @@ package com.liugx.testsystem.service.manage;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Delayed;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.task.TaskExecutor;
 import org.springframework.stereotype.Service;
 
-import com.liugx.testsystem.Bean.NotifiedUser;
 import com.liugx.testsystem.dto.PaginationDTO;
 import com.liugx.testsystem.dto.ResultDTO;
 import com.liugx.testsystem.dto.TestCreateDTO;
 import com.liugx.testsystem.dto.TestDTO;
 import com.liugx.testsystem.enums.GeneratorIdEnum;
 import com.liugx.testsystem.enums.MessageTypeEnum;
-import com.liugx.testsystem.enums.NotificationStatusEnum;
 import com.liugx.testsystem.enums.ReceiverEnum;
 import com.liugx.testsystem.execption.CustomizeErrorCode;
 import com.liugx.testsystem.execption.CustomizeException;
-import com.liugx.testsystem.mapper.MessageMapper;
-import com.liugx.testsystem.mapper.NoticeMapper;
 import com.liugx.testsystem.mapper.PaperMapper;
 import com.liugx.testsystem.mapper.TestMapper;
-import com.liugx.testsystem.model.Message;
-import com.liugx.testsystem.model.Notice;
 import com.liugx.testsystem.model.Paper;
 import com.liugx.testsystem.model.Test;
 import com.liugx.testsystem.model.TestExample;
-import com.liugx.testsystem.model.User;
+import com.liugx.testsystem.schedule.DelayQueueManage;
+import com.liugx.testsystem.schedule.DelayTask;
 import com.liugx.testsystem.util.IdAutoGeneratorUtil;
-import com.liugx.testsystem.util.NotifyUserStrategyUtil;
 
 @Service
 public class TestService {
@@ -43,6 +40,9 @@ public class TestService {
 	
 	@Autowired
 	private NotifyService notifyService;
+	
+	@Autowired
+	private DelayQueueManage delayQueueManage;
 	
 	
 	public void  publishTest(TestCreateDTO testCreateDTO) {
@@ -65,6 +65,7 @@ public class TestService {
 		test.setId(IdAutoGeneratorUtil.generatorId(GeneratorIdEnum.TEST));
 		test.setStatus(false);
 		testMapper.insert(test);
+		delayQueueManage.put(new DelayTask(test));
 		notifyService.createNotify(test,ReceiverEnum.ALL_USER, MessageTypeEnum.PUBLISH_NEW_TEST);
 	}
 	

@@ -2,7 +2,8 @@ package com.liugx.testsystem.enums;
 
 public enum MessageTypeEnum{
 	PUBLISH_NEW_TEST(101,"发布了新考试，考试名称为："), 
-	MODIFY_TEST(102,"考试信息更新，更新的考试是：")
+	MODIFY_TEST(102,"考试信息更新，更新的考试是："), 
+	TEST_STARTING(103,"考试已经开始！考试名为：")
 	;
 	private int type;
 	private String name;
