@@ -17,3 +17,6 @@ mvn -Dmybatis.generator.overwrite=true mybatis-generator:generate
 [mybatis generator](http://mybatis.org/generator/index.html)
 [jedis github](https://github.com/redis/jedis)
 [jedis api](http://redis.github.io/jedis/)
+[zookeeper](https://zookeeper.apache.org/doc/current/zookeeperStarted.html)
+[kafka](http://kafka.apache.org/documentation/#producerapi)
+[kafka window安装教程](https://www.cnblogs.com/flower1990/p/7466882.html)

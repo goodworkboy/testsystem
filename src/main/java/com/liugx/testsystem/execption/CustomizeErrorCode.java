@@ -22,6 +22,7 @@ public enum CustomizeErrorCode implements ICustomizeErrorCode{
 	USER_NOT_SIGN_UP(2017,"用户未报名该考试！"), 
 	MESSAGE_NOT_FOUND(2018,"消息未找到！"), 
 	READ_MESSAGE_FAIL(2019,"读取消息失败！"), 
+	UNKNOW_ERROR(3000,"未知错误"), 
 	;
 	
 	private Integer code;

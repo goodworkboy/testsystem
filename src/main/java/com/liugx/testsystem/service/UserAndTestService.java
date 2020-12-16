@@ -16,6 +16,7 @@ import com.liugx.testsystem.dto.UserTestDTO;
 import com.liugx.testsystem.dto.TestDTO;
 import com.liugx.testsystem.dto.UserTestQueryDTO;
 import com.liugx.testsystem.enums.GeneratorIdEnum;
+import com.liugx.testsystem.enums.ReceiverEnum;
 import com.liugx.testsystem.execption.CustomizeErrorCode;
 import com.liugx.testsystem.execption.CustomizeException;
 import com.liugx.testsystem.execption.ICustomizeErrorCode;
@@ -36,6 +37,7 @@ import com.liugx.testsystem.model.UserTestInfo;
 import com.liugx.testsystem.model.UserTestInfoExample;
 import com.liugx.testsystem.model.UserTestInfoKey;
 import com.liugx.testsystem.util.IdAutoGeneratorUtil;
+import com.liugx.testsystem.util.TopicNameGeneratorUtil;
 
 @Service
 public class UserAndTestService {
@@ -60,6 +62,8 @@ public class UserAndTestService {
 	@Autowired
 	private QuestionMapper questionMapper;
 	
+	@Autowired
+	private UserTopicService userTopicService;
 	
 	
 	public Object signUp(TestIdDTO testIdDTO, User user) {
@@ -82,6 +86,8 @@ public class UserAndTestService {
 		userAndTest.setModifyTime(userAndTest.getCreateTime());
 		userAndTest.setId(IdAutoGeneratorUtil.generatorId(GeneratorIdEnum.USER_AND_TEST.getKey()));
 		userAndTestMapper.insertSelective(userAndTest);
+		String topic = TopicNameGeneratorUtil.getName(test, ReceiverEnum.USER_OF_TEST);
+		userTopicService.insertUserTopic(user,topic);
 		return null;
 	}
 	
@@ -95,6 +101,8 @@ public class UserAndTestService {
 		userAndTestExample.createCriteria().andUserIdEqualTo(user.getId())
 			.andTestIdEqualTo(testIdDTO.getTestId());
 		userAndTestMapper.deleteByExample(userAndTestExample);
+		String topic = TopicNameGeneratorUtil.getName(test, ReceiverEnum.USER_OF_TEST);
+		userTopicService.removeUserTopic(user,topic);
 		return null;
 	}
 

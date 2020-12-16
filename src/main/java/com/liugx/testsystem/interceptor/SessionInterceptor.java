@@ -1,19 +1,23 @@
 package com.liugx.testsystem.interceptor;
 
+import java.util.List;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.liugx.testsystem.mapper.NoticeMapper;
 import com.liugx.testsystem.mapper.UserMapper;
 import com.liugx.testsystem.model.User;
+import com.liugx.testsystem.provider.kafka.MessageHandler;
 import com.liugx.testsystem.service.NoticeService;
+import com.liugx.testsystem.service.UserTopicService;
 
 @Service
 public class SessionInterceptor implements HandlerInterceptor {
@@ -23,6 +27,16 @@ public class SessionInterceptor implements HandlerInterceptor {
 	
 	@Autowired
 	private UserMapper userMapper;
+	
+	@Autowired
+	private MessageHandler messageHandler;
+	
+	@Autowired
+	private KafkaConsumer kafkaConsumer;
+	
+	@Autowired
+	private UserTopicService userTopicService;
+	
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
@@ -37,13 +51,16 @@ public class SessionInterceptor implements HandlerInterceptor {
 					User user = userMapper.selectByPrimaryKey(id);
                     if (user != null) {
                         HttpSession session = request.getSession();
-                        int unreadCount = noticeService.unreadCount(user);
                         session.setAttribute("user", user);
+                        List<String> topics= userTopicService.list(user);
+                        messageHandler.onMessage(kafkaConsumer, topics,user);
+                        int unreadCount = noticeService.unreadCount(user);
                         session.setAttribute("unreadCount", unreadCount);
                     }
                     return true;
                 }
             }
+        request.getSession().invalidate();
         response.sendRedirect("/");
         return true;
 	}

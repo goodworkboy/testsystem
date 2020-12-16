@@ -64,7 +64,6 @@ public class TestService {
 		test.setName(testCreateDTO.getName());
 		test.setId(IdAutoGeneratorUtil.generatorId(GeneratorIdEnum.TEST));
 		test.setStatus(false);
-		System.out.println(test.getId());
 		testMapper.insert(test);
 		notifyService.createNotify(test,ReceiverEnum.ALL_USER, MessageTypeEnum.PUBLISH_NEW_TEST);
 	}

@@ -43,11 +43,12 @@ public class AuthorizeController {
 		userdto.setStudentNum(studentNum);
 		userdto.setPassword(password);
 		User user=userService.selectUser(userdto);
-		Cookie cookie = new Cookie("token", user.getId().toString());
-		cookie.setPath("/user/");
-		cookie.setMaxAge(60*60*24);
-		response.addCookie(cookie);
 		if(user!=null) {
+			Cookie cookie = new Cookie("token", user.getId().toString());
+			cookie.setPath("/user/");
+			cookie.setMaxAge(60*60*24);
+			response.addCookie(cookie);
+			request.getSession().invalidate();
 			request.setAttribute("user", user);
 			return "redirect:/user/home";
 		}else {
@@ -61,6 +62,7 @@ public class AuthorizeController {
             HttpServletResponse response) {
 		User user = (User)request.getAttribute("user");
 		request.getSession().removeAttribute("user");
+		request.getSession().invalidate();
 		if(user==null) return "redirect:/";
         Cookie cookie = new Cookie("token", null);
         cookie.setPath("/user/");

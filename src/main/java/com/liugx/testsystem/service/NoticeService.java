@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Objects;
 
 import org.apache.ibatis.session.RowBounds;
+import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,12 +21,17 @@ import com.liugx.testsystem.mapper.NoticeMapper;
 import com.liugx.testsystem.model.Message;
 import com.liugx.testsystem.model.MessageExample;
 import com.liugx.testsystem.model.User;
+import com.liugx.testsystem.provider.kafka.MessageHandler;
 
 @Service
 public class NoticeService {
 	
 	@Autowired
 	private MessageMapper messageMapper;
+	
+	@Autowired
+	private KafkaConsumer kafkaConsumer;
+	
 	
 	public PaginationDTO list(User user, Integer page, Integer size) {
 		// TODO Auto-generated method stub
@@ -81,6 +87,9 @@ public class NoticeService {
 		MessageExample example= new MessageExample();
 		example.createCriteria().andUserIdEqualTo(user.getId())
 			.andStatusEqualTo(NotificationStatusEnum.UNREADED.getStatus());
+		List<String> topic=new ArrayList<String>();
+		topic.add("AllUser");
+		
 		return (int) messageMapper.countByExample(example);
 	}
 

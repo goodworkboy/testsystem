@@ -48,7 +48,8 @@
     </table>
     <table tableName="userandtest" domainObjectName="UserAndTest" >
     	<property name="cache_type" value="com.liugx.testsystem.cache.mybatis.MybatisCache" />
-    </table>
+    </table> 
+    
     <table tableName="usertestinfo" domainObjectName="UserTestInfo" >
     	<property name="cache_type" value="com.liugx.testsystem.cache.mybatis.MybatisCache" />
     </table>
@@ -56,6 +57,10 @@
     	<property name="cache_type" value="com.liugx.testsystem.cache.mybatis.MybatisCache" />
     </table>
     <table tableName="message" domainObjectName="Message" >
+    	<property name="cache_type" value="com.liugx.testsystem.cache.mybatis.MybatisCache" />
+    </table>
+    
+    <table tableName="user_topic" domainObjectName="UserTopic" >
     	<property name="cache_type" value="com.liugx.testsystem.cache.mybatis.MybatisCache" />
     </table>
   </context>

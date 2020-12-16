@@ -15,6 +15,7 @@ public class CustomizeExceptionHandler {
 	@ExceptionHandler(Exception.class)
 	ModelAndView handle(HttpServletRequest request, Throwable ex,
 			Model model) {
+		request.getSession().invalidate();
 		 if (ex instanceof CustomizeException) {
              model.addAttribute("message", ex.getMessage());
          }else {
